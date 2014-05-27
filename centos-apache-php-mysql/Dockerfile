@@ -2,8 +2,8 @@ FROM centos:latest
 MAINTAINER a.yasui@gmail.com
 
 ## Add repos
-RUN wget http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
-RUN wget http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
+RUN curl -O http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
+RUN curl -O http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
 RUN curl -O http://rpms.famillecollet.com/RPM-GPG-KEY-remi; rpm --import RPM-GPG-KEY-remi
 RUN rpm -Uvh remi-release-6*.rpm epel-release-6*.rpm
 
@@ -56,6 +56,7 @@ CMD ["/bin/bash", "/usr/bin/container-boot.sh"]
 # HTTPD
 EXPOSE 80
 ENTRYPOINT ["/usr/sbin/httpd", "/usr/sbin/mysql_safe"]
-CMD ["-D", "FOREGROUND"]
+
+CMD ["/usr/sbin/apachectl", "-DFOREGROUND"]
 
 
